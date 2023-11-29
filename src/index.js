@@ -6,7 +6,7 @@ child_element.innerText = render
 parent_element.appendChild(child_element)*/
 
 // new but hard react way
-import React from "react"
+/*import React from "react"
 import ReactDOM  from "react-dom/client"
 function handleClick(msg){
     alert('pressed '+ msg)
@@ -18,3 +18,11 @@ const child_element3 = <div onClick={()=> handleClick(msg)}>hellow</div>
 const ChildElement4 = ()=><>{condition ? child_element2 : child_element1}</>
 const parent_element = ReactDOM.createRoot(document.getElementById('root'))
 parent_element.render(ChildElement4())
+// parent_element.render(<ChildElement4/>)
+*/
+
+import App from "./App.jsx";
+import  ReactDOM  from "react-dom/client";
+import React from "react";
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(<App/>)
