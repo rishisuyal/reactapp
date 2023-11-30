@@ -7,7 +7,8 @@ import Text from "./Text.jsx"
     }
     return <Button clickAction={handelClickAction}>clickme</Button>
 }*/
-
+//module 6
+/*
 const App = ()=>{
     // const data = [
     //     {id:'a',text:'text1'},
@@ -64,3 +65,49 @@ const App = ()=>{
 export default App // Default export : that can be imported by import App , we can give any name we want like import Appjss
 // export {App} // Named export : that can be imported by import {App}
 //only one default export allowed
+*/
+//module 7
+/*
+export default ()=>{
+ 
+    let msg = "Good"
+    const handleClick = (param)=>{
+        console.log(param)
+        msg = param
+    }
+    return <div onClick={() => handleClick('Bad')}>{msg}</div>
+
+}// this will not change anything since its not possible to change inside jsx without rerendering it in React.
+*/
+export default ()=>{
+ 
+    let [msg,changeMsg] = useState(()=>{
+        return "Good"
+    })
+    let [margin, changeMargin] = useState('nothing')
+    const handleClick = ()=>{
+        // changeMsg((prevData)=>{
+        //     if (prevData == 'Good'){
+        //         return 'Bad'
+        //     }
+        //     else{
+        //         return 'Good'
+        //     }
+        // })
+        changeMargin((prev)=>{
+            if (prev == 'nothing'){
+                return 'givemargin'
+            }
+            else{
+                return 'nothing'
+
+            }
+        })
+    }
+    // return <div onClick={() => handleClick()}>{msg}</div>
+    return <>
+    <div className={margin}>{msg}</div>
+    <Button clickAction={handleClick}>Change State</Button>
+    </>
+
+} // useState would change the jsx by rerendering it with new updated value. and the update function work "asynchronusly"
