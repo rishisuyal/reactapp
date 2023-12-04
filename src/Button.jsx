@@ -10,3 +10,5 @@ const Button = memo((props) => {
 export default Button
 //module 7
 //by using memo with the useCallback the console.log('rerendering button')  does not writes again when updating the state.
+
+//module 8

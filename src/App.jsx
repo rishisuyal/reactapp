@@ -115,3 +115,6 @@ export default ()=>{
 //module 7
 //never use update of a state inside a big module like app.jsx coz it would rerender the whole app.jsx instead make a saperate component for whatevr you are updating for.
 //by using memo with the useCallback the console.log('rerendering button')  does not writes again when updating the state.
+
+//module 8
+// https://github.com/acdlite/react-fiber-architecture read this mendatory.
