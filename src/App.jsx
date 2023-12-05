@@ -1,6 +1,8 @@
-import React, {useState,useCallback} from "react"
+import React, {useState,useCallback,useEffect} from "react"
 import Button from "./Button.jsx"
 import Text from "./Text.jsx"
+import Timer from "./Timer.jsx"
+// import { cli } from "webpack"
 /*const App = ()=>{
     const handelClickAction = ()=>{
         console.log('its inside')
@@ -79,6 +81,7 @@ export default ()=>{
 
 }// this will not change anything since its not possible to change inside jsx without rerendering it in React.
 */
+/*
 export default ()=>{
  
     let [msg,changeMsg] = useState(()=>{
@@ -111,10 +114,55 @@ export default ()=>{
     </>
 
 } // useState would change the jsx by rerendering it with new updated value. and the update function work "asynchronusly"
-
+*/
 //module 7
 //never use update of a state inside a big module like app.jsx coz it would rerender the whole app.jsx instead make a saperate component for whatevr you are updating for.
 //by using memo with the useCallback the console.log('rerendering button')  does not writes again when updating the state.
-
+//although memo stops rerendering whole component again and again but here handleclick function itself creates again by using the usestate therefore
+// Button component also rerenders because it thinks the handleclick pros as new, therefore it is neccessary here to define handleClick as a Callback by using
+//useCallback function.
+//please ensure that you have provided a dependency array as empty here.
 //module 8
 // https://github.com/acdlite/react-fiber-architecture read this mendatory.
+
+//module 9
+/*
+export default ()=>{
+    let [data1,setdata1] = useState(0)
+    let [data2,setdata2] = useState(0)
+    // useEffect(()=>{
+    //     console.log('useEffect....1')
+    // },[data1]) // if we dont provide the dependency array it will first run on mount and then in every rerender.
+    // useEffect(()=>{
+    //     console.log('useEffect....2')
+    // },[data2]) 
+    const handleClick1 = useCallback(()=>{
+        setdata1((prev)=>{
+            return prev + 1;
+        })
+    },[])
+    const handleClick2 = useCallback(()=>{
+        setdata2((prev)=>{
+            return prev + 1;
+        })
+    },[])
+    return <>
+    <Text data={data1}>1</Text>
+    <Button clickAction={handleClick1}>Click</Button>
+    <Text data={data2}>2</Text>
+    <Button clickAction={handleClick2}>Click</Button>
+    </>
+
+}*/
+export default ()=>{
+    const [flag,changeFlag] = useState(true)
+    const toggleTimer = ()=>{
+        changeFlag((prev) => !prev)
+    }
+    return <>
+    {flag && <Timer data="A Good Clock"></Timer>}
+    <button onClick={toggleTimer}>Toggle Timer</button>
+    </>
+}// if flag true render timer
+
+
