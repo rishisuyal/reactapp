@@ -7,6 +7,7 @@ import Text from "./Text.jsx"
 import Timer from "./Timer.jsx"
 import TooltipButton from "./TooltipButton.jsx"
 import Inputbox,{InputBox} from "./InputBox.jsx"
+import CallbackParent from "./CallbackParent.jsx"
 // import { cli } from "webpack"
 /*const App = ()=>{
     const handelClickAction = ()=>{
@@ -273,6 +274,53 @@ export default ()=>{
     </>
 } // <InputBox ref={inputRef2}></InputBox> here in line 265 because ref is a reserved keyword we cant use it to pass a prop within parent-child.
 */
+//module 12 useCallback
+//useCallback is a React Hook that lets you cache a function definition between re-renders not the Value.
+// what it means is let's consider a function as
+/*
+ const func = ()=>{
+
+ }
+*/
+// whenver react rerenders a component then the function also will be recreated in the memory
+// which is unefficient.
+// lets consider we use a State-variable and if we use it inside the func that mentioned above
+// will be unable to know what is the new value of that variable without creating function again.
+// we can use useCallback which caches the function defination and that's how it prevents react to make the 
+//  function defination again on rerender cycles.
+//here is the proof ---->
 export default ()=>{
-    return <></>
+    const [count,setCount] = useState(0)
+    const handleClick = ()=>{
+        setCount((prev)=>prev+1)
+        console.log('outermost Clicked')
+    }
+    return <>
+    {count}
+    <br />
+    i am outermost<>&nbsp;</>
+    <button onClick={handleClick}>count++</button>
+    <br />
+    <CallbackParent></CallbackParent>
+    </>
 }
+// here when clicking on count++ the App gets rerendered -> hence the CallbackParent --> hence the CallbackChild 
+// bcz CallbackChild is slow by 1000ms therefore the render of the state count would take 1000ms to reflect the change on this render cycle
+//however console.log prints immidiately because js doesnot waits for anything as we know.
+// for this solution we can wrap CallbackChild with memo but we can see the prop from Callbackparent named handleChange
+// also rerender and therefore react will consider it as a change so, the use of memo only would not be able to stop rerendring the 
+// CallbackChild component bcz memo only prevents rerender untill unless props does not changes.
+// Therefore in this Condition we have to have use useCallback to cache the handleChange function 
+// (that is inside the CallbackParent component) and 
+// have been send as a prop to CallbackChild so that the function does not recreated and memo do not 
+// detect any change in the prop itself hence the CallbackChild will not Rerendered so lag will be gone.
+// useCallback has a dependency array which can contain rective-variables(*props, state, and all the variables and functions declared directly inside your component body)
+// if dependency array changes the function will be created again.
+// but what if the function wrapped inside the useCallback using a prop value from parent component?
+// then the value would not be dynamic inside that function because function has been 
+// cached with the  value that was on its first render.
+// in this perticular condition if we want the latest value everytime inside the function
+// we have to stop caching that function and start its rerender cycles for that perticular prop
+// for that we can pass that prop into the dependency array.
+// also there is n harm in using useCallback normally with empty dependency array. it would work normally.however you can always
+// tweak it with passing values on dependency array.

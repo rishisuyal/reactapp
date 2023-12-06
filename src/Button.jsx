@@ -10,7 +10,7 @@
 // export default Button
 //module 7
 //by using memo with the useCallback the console.log('rerendering button')  does not writes again when updating the state.
-
+// memo prevents rerender component untill unless the prop changes.
 //module 8
 //module 9
 import React, {memo} from "react"
