@@ -1,8 +1,12 @@
-import React, {useState,useCallback,useEffect} from "react"
+// if we want to send something from parent to child we use props
+// and if we want to send something from child to parent we define a function in parent and 
+//bind it with a prop than call the funcion from child with data as a arguments and recieve it on the parent side function as parameter.
+import React, {useState,useCallback,useEffect, useRef} from "react"
 import Button from "./Button.jsx"
 import Text from "./Text.jsx"
 import Timer from "./Timer.jsx"
 import TooltipButton from "./TooltipButton.jsx"
+import Inputbox,{InputBox} from "./InputBox.jsx"
 // import { cli } from "webpack"
 /*const App = ()=>{
     const handelClickAction = ()=>{
@@ -168,6 +172,7 @@ export default ()=>{
 */
 //module 10
 //useLayouteffect
+/*
 export default ()=>{
     return <>
     <TooltipButton data={
@@ -185,4 +190,89 @@ export default ()=>{
     }>Hover me (tooltip below)
     </TooltipButton>
     </>
+}
+*/
+//module 11
+//useRef
+//it is a type of hook the lets you refrence a value that's not needed for rendering 
+// in comparision with useState that we need when we want to refrence a value that we want in every rerender.
+// as in module 10 we saw that we used it for getting DOM element values.
+// but here we'll see it is majorly work as something else.however we used it for geting DOM element.
+// one interview question can be as diffrence between useRef and useState.
+/*
+export default ()=>{
+    let x = 0
+    const ref = useRef(0)
+    const [stateVar,changeStateVar] = useState(0)
+    return <>
+    <button onClick={()=>{x + 1}}>change local variable</button>
+    <button onClick={()=>{ref.current = ref.current + 1}}>change ref</button>
+    <button onClick={()=>{changeStateVar((prev)=>prev+1)}}>change state</button>
+    <div>
+        <span>{x}</span>
+        <br />
+        <span>{ref.current}</span>
+        <br />
+        <span>{stateVar}</span>
+    </div>
+    </>
+} // on clicking change ref button it does not reflect change on the screen but when clicking 
+// on change state button it then shows the increamented counts depends upon how much time you clicked 
+// the change ref button bcz on clicking change state button it rerenders the whole component but changing ref does not cause a rerender.
+// and on rerender bcz ref remembers the last value so it shows it.
+// also on rerender the value of x variable again assigns with 0.
+// ref was able to retain its value bcz it has kind of a memory that persists every render cycle.
+// you can relate it with that a++ and ++a example in c.
+//this is why it is a type of hook the lets you refrence a value that's not needed for rendering but something else.
+// think of this a x as a human with no superpowers. ref as avarage superhuman and stateVar as superman.
+*/
+// where can we use useRef.
+// answere.---->
+/*
+export default ()=>{
+    const inputRef = useRef(null)
+    const inputRef2 = useRef(null)
+    const inputRef3 = useRef(null)
+    const changeInputRef = ()=>{
+        if(inputRef.current){
+            console.log(inputRef.current) // it gives us the input element on console.
+            // focus is just a property of that input element
+            console.log(inputRef.current.getBoundingClientRect()) // dont misuse it coz this is very expensive calculation
+            inputRef.current.focus()
+        }
+    }
+    const changeInputRef2 = ()=>{
+        if(inputRef2.current){
+            console.log(inputRef2.current.getBoundingClientRect()) // dont misuse it coz this is very expensive calculation
+            inputRef2.current.focus()
+        }
+    }
+    const changeInputRef3 = ()=>{
+        if(inputRef3.current){
+            console.log(inputRef3.current.getBoundingClientRect()) // dont misuse it coz this is very expensive calculation
+            inputRef3.current.focus()
+        }
+    }
+    return <>
+    <h1>Timer Example for useRef</h1>
+        <Timer data="A Good Clock&nbsp;&nbsp;"></Timer>
+    <br />
+    <h1>DOM example for useRef</h1>
+    <input ref={inputRef} type="text" name="nothing" id="no" />
+    <button onClick={changeInputRef}>Focus inputbox</button>
+    <br />
+    <h2>forwardRef Example</h2>
+    <h3>There are Two ways: </h3>
+    <h3>1. naming the ref as a custom named prop</h3>
+    <InputBox inputref={inputRef2}></InputBox>
+    <button onClick={changeInputRef2}>Focus inputbox2</button>
+    <br />
+    <h3>2. use forwardRef</h3>
+    <Inputbox ref={inputRef3}></Inputbox>
+    <button onClick={changeInputRef3}>Focus inputbox3</button>
+    </>
+} // <InputBox ref={inputRef2}></InputBox> here in line 265 because ref is a reserved keyword we cant use it to pass a prop within parent-child.
+*/
+export default ()=>{
+    return <></>
 }
