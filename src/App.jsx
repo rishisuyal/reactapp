@@ -2,6 +2,7 @@ import React, {useState,useCallback,useEffect} from "react"
 import Button from "./Button.jsx"
 import Text from "./Text.jsx"
 import Timer from "./Timer.jsx"
+import TooltipButton from "./TooltipButton.jsx"
 // import { cli } from "webpack"
 /*const App = ()=>{
     const handelClickAction = ()=>{
@@ -153,7 +154,7 @@ export default ()=>{
     <Button clickAction={handleClick2}>Click</Button>
     </>
 
-}*/
+}
 export default ()=>{
     const [flag,changeFlag] = useState(true)
     const toggleTimer = ()=>{
@@ -164,5 +165,24 @@ export default ()=>{
     <button onClick={toggleTimer}>Toggle Timer</button>
     </>
 }// if flag true render timer
-
-
+*/
+//module 10
+//useLayouteffect
+export default ()=>{
+    return <>
+    <TooltipButton data={
+        <div>This Tooltip does not fit above the button <br /> That is why it is showing below insted</div>
+    }> Hover me (tooltip above)
+    </TooltipButton>
+    <div style={{height:50}}/>
+    <TooltipButton data={
+        <div>This Tooltip fits above the button</div>
+    }>Hover me (tooltip below)
+    </TooltipButton>
+    <div style={{height:50}}/>
+    <TooltipButton data={
+        <div>This Tooltip fits above the button</div>
+    }>Hover me (tooltip below)
+    </TooltipButton>
+    </>
+}
