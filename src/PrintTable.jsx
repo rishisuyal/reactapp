@@ -11,19 +11,21 @@ function getTable(number){
     }
     return arr
 }
-export default (props)=>{
+// export default (props)=>{
+//     const { num } = props;
+//     const table = useMemo(()=> getTable(num),[num]);
+//     return <>
+//     <ul style={{listStyle:'none'}}>
+//         {table}
+//     </ul>
+//     </>
+// }
+export default memo((props)=>{
     const { num } = props;
-    const table = useMemo(()=> getTable(num),[num]);
+    const table = getTable(num);
     return <>
     <ul style={{listStyle:'none'}}>
-        {table}
+         {table}
     </ul>
     </>
-}
-// export default memo((props)=>{
-//     const { num } = props;
-//     const table = getTable(num);
-//     return <>
-//     {table}
-//     </>
-// })
+})

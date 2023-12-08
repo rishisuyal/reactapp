@@ -1,7 +1,7 @@
 // if we want to send something from parent to child we use props
 // and if we want to send something from child to parent we define a function in parent and 
 //bind it with a prop than call the funcion from child with data as a arguments and recieve it on the parent side function as parameter.
-import React, {useState,useCallback,useEffect, useRef} from "react"
+import React, {useState,useCallback,useEffect, useRef, useMemo} from "react"
 import Button from "./Button.jsx"
 import Text from "./Text.jsx"
 import Timer from "./Timer.jsx"
@@ -331,6 +331,7 @@ export default ()=>{
 
 // Module 13
 // useMemo or memoization.
+/*
 export default ()=>{
     const [count1,setCount1] = useState(0)
     const [count2,setCount2] = useState(0)
@@ -340,6 +341,7 @@ export default ()=>{
     <PrintTable num={count2}></PrintTable>
     </>
 }
+*/
 // here as we can see if any of button will be clicked then the PrintTable will be re-render.
 // and because inside PrintTable the function getTable is very slow so ..
 // One solution is that we can use memo Api itself covering the whole exported component.
@@ -347,3 +349,26 @@ export default ()=>{
 // Other solution is that we can use useMemo hook covering the getTable function call,
 // with passing prop num in dependency array.
 // By doing this the count1++ would have no effect of slow Function getTable.
+
+//module 14
+//memo 
+export default ()=>{
+    const [count1,setCount1] = useState(0)
+    const [count2,setCount2] = useState(0)
+    // const myObj = {key:'value'}
+    const myObj = useMemo(()=>{key:'value'},[])
+    return <>
+    {<span style={{color:'darkred'}}>{count1}</span>} &nbsp; <button onClick={()=> setCount1((prev)=> prev+1)}>count1++</button><br />
+    {<span style={{color:'red'}}>{count2}</span>} &nbsp; <button onClick={()=> setCount2((prev)=> prev+1)}>count2++</button>
+    <PrintTable num={count2} obj={myObj}></PrintTable>
+    </>
+}
+// we already know about this Api but 
+// one thing is here that if we define a local "non-premitive data-types" and pass
+// it to the slow component like PrintTable using memo Api
+// then on rerender except "primitive data-types" it recreates or redeclares the variable
+// causing change in memo prop.
+// note :- memo performes a "shallow comparision".which means that it uses Object.is() method
+// the Object.is() static method determines whether two values are the same value.
+// so Object.is(3,3) --> gives --> true Object.is({},{}) --> gives --> false. 3 is permitive and {} is non-premitive.
+// or we can do something like const obj = useMemo(()=> ['a','b'],[]).
