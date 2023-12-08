@@ -8,6 +8,7 @@ import Timer from "./Timer.jsx"
 import TooltipButton from "./TooltipButton.jsx"
 import Inputbox,{InputBox} from "./InputBox.jsx"
 import CallbackParent from "./CallbackParent.jsx"
+import PrintTable from "./PrintTable.jsx"
 // import { cli } from "webpack"
 /*const App = ()=>{
     const handelClickAction = ()=>{
@@ -289,6 +290,7 @@ export default ()=>{
 // we can use useCallback which caches the function defination and that's how it prevents react to make the 
 //  function defination again on rerender cycles.
 //here is the proof ---->
+/*
 export default ()=>{
     const [count,setCount] = useState(0)
     const handleClick = ()=>{
@@ -304,6 +306,7 @@ export default ()=>{
     <CallbackParent></CallbackParent>
     </>
 }
+*/
 // here when clicking on count++ the App gets rerendered -> hence the CallbackParent --> hence the CallbackChild 
 // bcz CallbackChild is slow by 1000ms therefore the render of the state count would take 1000ms to reflect the change on this render cycle
 //however console.log prints immidiately because js doesnot waits for anything as we know.
@@ -324,3 +327,23 @@ export default ()=>{
 // for that we can pass that prop into the dependency array.
 // also there is n harm in using useCallback normally with empty dependency array. it would work normally.however you can always
 // tweak it with passing values on dependency array.
+
+
+// Module 13
+// useMemo or memoization.
+export default ()=>{
+    const [count1,setCount1] = useState(0)
+    const [count2,setCount2] = useState(0)
+    return <>
+    {<span style={{color:'darkred'}}>{count1}</span>} &nbsp; <button onClick={()=> setCount1((prev)=> prev+1)}>count1++</button><br />
+    {<span style={{color:'red'}}>{count2}</span>} &nbsp; <button onClick={()=> setCount2((prev)=> prev+1)}>count2++</button>
+    <PrintTable num={count2}></PrintTable>
+    </>
+}
+// here as we can see if any of button will be clicked then the PrintTable will be re-render.
+// and because inside PrintTable the function getTable is very slow so ..
+// One solution is that we can use memo Api itself covering the whole exported component.
+// because it will only rerender the PrintTable component when count2 would be change.
+// Other solution is that we can use useMemo hook covering the getTable function call,
+// with passing prop num in dependency array.
+// By doing this the count1++ would have no effect of slow Function getTable.
