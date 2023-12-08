@@ -2,6 +2,10 @@ import React, {memo,useEffect} from "react" //it stops rerendering the whole com
 // memo prevents rerender component untill unless the prop changes.
 const Text = memo((props)=>{
     const {children,data} = props
+    let now = performance.now()
+    while(performance.now() - now < 500){
+        //do nothing
+    }
     useEffect(()=>{
         if(children == 1){
             console.log('Data 1 is',data)
@@ -10,6 +14,6 @@ const Text = memo((props)=>{
             console.log('Data 2 is',data)
         }
         },[data]) 
-    return <div>{data}  </div>
+    return <div>{children}{data}</div>
 })
 export default Text

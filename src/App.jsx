@@ -1,14 +1,14 @@
 // if we want to send something from parent to child we use props
 // and if we want to send something from child to parent we define a function in parent and 
 //bind it with a prop than call the funcion from child with data as a arguments and recieve it on the parent side function as parameter.
-import React, {useState,useCallback,useEffect, useRef, useMemo} from "react"
+import React, {useState,useCallback,useEffect, useRef, useMemo, lazy, Suspense} from "react"
 import Button from "./Button.jsx"
-import Text from "./Text.jsx"
-import Timer from "./Timer.jsx"
+// import Text from "./Text.jsx"
 import TooltipButton from "./TooltipButton.jsx"
 import Inputbox,{InputBox} from "./InputBox.jsx"
 import CallbackParent from "./CallbackParent.jsx"
 import PrintTable from "./PrintTable.jsx"
+const Text = lazy(()=> import("./Text.jsx"))
 // import { cli } from "webpack"
 /*const App = ()=>{
     const handelClickAction = ()=>{
@@ -352,6 +352,7 @@ export default ()=>{
 
 //module 14
 //memo 
+/*
 export default ()=>{
     const [count1,setCount1] = useState(0)
     const [count2,setCount2] = useState(0)
@@ -363,6 +364,7 @@ export default ()=>{
     <PrintTable num={count2} obj={myObj}></PrintTable>
     </>
 }
+*/
 // we already know about this Api but 
 // one thing is here that if we define a local "non-premitive data-types" and pass
 // it to the slow component like PrintTable using memo Api
@@ -372,3 +374,34 @@ export default ()=>{
 // the Object.is() static method determines whether two values are the same value.
 // so Object.is(3,3) --> gives --> true Object.is({},{}) --> gives --> false. 3 is permitive and {} is non-premitive.
 // or we can do something like const obj = useMemo(()=> ['a','b'],[]).
+
+//module 15
+// lazy Api
+// lazy lets you defer loading component’s code until it is rendered for the first time.
+// watch bundle.js inside network selecting all.
+export default ()=>{
+    const [showText,toggleText] = useState(false)
+    return <>
+        <button onClick={()=>toggleText(!showText)}>Toggle Text</button>
+        <br />
+        
+        {showText && <Suspense fallback={<div>i am Loading......</div>}>
+            <Text>Here is Your Text!</Text>
+        </Suspense>}
+    </>
+}
+// the Text component already added in our bundle.js 
+// we can only load the component Text.jsx inside bundle.js
+// when we need it.
+// we would import Text component only when we need it.
+// we have use lazy to load Text component after clicking the button
+// we can see in network now another js file instead of bundle.js appears.
+// which is actually the file of Text.jsx
+// note :- we should use Suspense Component by wrapping Text inside it.
+// Suspense ==> <Suspense> lets you display a fallback until its children have finished loading.
+// i have implimented a manual slowness in Text.jsx so that i am Loading..... 
+// will show first then the Real component.
+// but once it loaded fist time it get cached and then we would not see i am Loading prompt
+// untill api in network calls again or we refresh the page basically.
+//  we should only use lazy with those components which are not shown on first load.
+// we should only use lazy with components like dropdown, popups etc. which basically comes on click of something.
