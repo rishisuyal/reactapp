@@ -432,6 +432,7 @@ export default ()=>{
 import { ThemeContext } from "./context.js"
 import Navbar from "./Navbar.jsx"
 
+/*
 export default ()=>{
     const [theme,setTheme] = useState('dark')
 
@@ -443,7 +444,7 @@ export default ()=>{
         </ThemeContext.Provider>
     </>
 }
-
+*/
 // now what we see from here is that 
 // we does not have to pass an value to the Navbar and from navbar i do not passed any value to the Button component
 // but Button component did get the value  of theme and the statechange function that is setTheme
@@ -453,3 +454,27 @@ export default ()=>{
 // point to be noted here is that the Navbar then the BUtton Component and the Heading both components are re-rendring 
 // while changing the value of  theme from Button component 
 // so we have to use it wisely.
+
+
+// Module 17
+//createPortal
+
+import { createPortal } from "react-dom"
+
+export default ()=>{
+    const [showModal,toggleModal] = useState(false)
+
+    return <>
+    Hey I am Inside Root
+    <br />
+    <button onClick={()=> toggleModal((prev)=> !prev)}>Toggle Modal</button>
+    {/* {showModal && <div>this is inside root component</div>} */}
+    {showModal && createPortal(<div style={{display : 'flex',justifyContent:'center',alignItems:'center',height:'100vh'}}>
+        <div style={{height:'400px' , width:'400px' , border: '1px solid black', padding: '5px'
+         , alignSelf:'center', display: 'flex' , alignItems:'center' , justifyContent:'center'}}>This is Modal Content</div>
+        </div>,document.body)}
+    </>
+}
+//createPortal lets you render some children into a different part of the DOM.
+// We can use Pop-up Modals with it.
+//i just used some flexbox css here you can learn flexbox on https://flexboxfroggy.com/
