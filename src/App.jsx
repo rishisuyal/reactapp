@@ -8,6 +8,7 @@ import TooltipButton from "./TooltipButton.jsx"
 import Inputbox,{InputBox} from "./InputBox.jsx"
 import CallbackParent from "./CallbackParent.jsx"
 import PrintTable from "./PrintTable.jsx"
+import Heading from "./Heading.jsx"
 const Text = lazy(()=> import("./Text.jsx"))
 // import { cli } from "webpack"
 /*const App = ()=>{
@@ -379,6 +380,7 @@ export default ()=>{
 // lazy Api
 // lazy lets you defer loading component’s code until it is rendered for the first time.
 // watch bundle.js inside network selecting all.
+/*
 export default ()=>{
     const [showText,toggleText] = useState(false)
     return <>
@@ -390,6 +392,7 @@ export default ()=>{
         </Suspense>}
     </>
 }
+*/
 // the Text component already added in our bundle.js 
 // we can only load the component Text.jsx inside bundle.js
 // when we need it.
@@ -405,3 +408,48 @@ export default ()=>{
 // untill api in network calls again or we refresh the page basically.
 //  we should only use lazy with those components which are not shown on first load.
 // we should only use lazy with components like dropdown, popups etc. which basically comes on click of something.
+
+// Module 16
+// createContext and useContext Hook
+/*
+export default ()=>{
+    const  heading = "bruhhh"
+
+    return <>
+    <Heading headingText={heading}></Heading>
+    </>
+}*/
+// point to be notice here is that heading variable is firstly passed to Heading component from App component
+// then it is again passed to Text Component from Heading Component 
+// if the children will be TOo Deep in the Tree then it would be time comsuming by passing the value like this
+// this is called prop drilling.
+// and not a good practice.
+//Context lets the parent component make some information available to any component in the tree below it
+//—no matter how deep—without passing it explicitly through props.
+// once you define a context on a parent that perticular data will be availible across whole tree.
+
+
+import { ThemeContext } from "./context.js"
+import Navbar from "./Navbar.jsx"
+
+export default ()=>{
+    const [theme,setTheme] = useState('dark')
+
+    return <>
+        <ThemeContext.Provider value={[theme,setTheme]}>
+            <Navbar></Navbar>
+            <br />
+            <Heading></Heading>
+        </ThemeContext.Provider>
+    </>
+}
+
+// now what we see from here is that 
+// we does not have to pass an value to the Navbar and from navbar i do not passed any value to the Button component
+// but Button component did get the value  of theme and the statechange function that is setTheme
+// which has been defined inside the root component.
+// Note:- i have shown the useContext Hook inside the Button component.
+// For more information please refer the Button component itself.
+// point to be noted here is that the Navbar then the BUtton Component and the Heading both components are re-rendring 
+// while changing the value of  theme from Button component 
+// so we have to use it wisely.
