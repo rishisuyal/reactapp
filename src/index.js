@@ -23,12 +23,15 @@ parent_element.render(ChildElement4())
 
 import App from "./App.jsx";
 import  ReactDOM  from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import React from "react";
-const root = ReactDOM.createRoot(document.getElementById('root'))
 import {store} from './store.js'
 import { Provider } from "react-redux";
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <Provider store={store}>
-        <App/>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
     </Provider>
 )

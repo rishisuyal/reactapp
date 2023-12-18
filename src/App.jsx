@@ -484,6 +484,7 @@ export default ()=>{
 // module 18
 // Redux
 // Redux is an open-source JavaScript library for managing and centralizing application state.
+/*
 import { useDispatch,useSelector } from "react-redux"
 import { increament,decreament,incbyammount } from "./counterSlice.js"
 
@@ -498,6 +499,7 @@ export default ()=>{
 
     </>
 }
+*/
 // mobX is also a player in this centralizing data stuff.
 //it kind of works like createContext and useContext.
 // for that we do need to install redux/toolkit
@@ -511,3 +513,36 @@ export default ()=>{
 "Redux requires too much boilerplate code"
 */
 // npm install @reduxjs/toolkit react-redux
+
+
+// Module 19
+// React Router
+
+import { Routes,Route,Link,useParams } from "react-router-dom"
+const HomeComponent = ()=> <div>i am Home</div>
+const AboutComponent = ()=> <div>i am About</div>
+const ContactComponent = ()=> <div>i am Contact</div>
+const ProfileComponent = () => {
+                                const {user} = useParams()
+                                return <div>Hello user: {user}</div>
+                                }
+
+
+export default ()=>{
+    return <>
+    <Link to="/">Home&nbsp;</Link>
+    <Link to="/about">About&nbsp;</Link>
+    <Link to="/contact">Contact&nbsp;</Link>
+    <Link to="/profile/sumit">Profile&nbsp;</Link>
+
+    <Routes>
+        <Route path="/" element={<HomeComponent/>}></Route>
+        <Route path="/about" element={<AboutComponent/>}></Route>
+        <Route path="/contact" element={<ContactComponent/>}></Route>
+        <Route path="/profile/:user" element={<ProfileComponent/>}></Route>
+    </Routes>
+    </>
+}
+
+
+// npm i react-router-dom@6
