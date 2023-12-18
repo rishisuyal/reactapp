@@ -517,7 +517,7 @@ export default ()=>{
 
 // Module 19
 // React Router
-
+/*
 import { Routes,Route,Link,useParams } from "react-router-dom"
 const HomeComponent = ()=> <div>i am Home</div>
 const AboutComponent = ()=> <div>i am About</div>
@@ -543,6 +543,22 @@ export default ()=>{
     </Routes>
     </>
 }
-
+*/
 
 // npm i react-router-dom@6
+
+//Module 20 
+// React Design Patterns
+
+/*
+
+1. HOC Design Pattern
+2. Render Prop Design Pattern
+3. Composition Pattern
+4. Custom Hooks Pattern
+
+*/
+
+export default ()=>{
+    return <></>
+}
