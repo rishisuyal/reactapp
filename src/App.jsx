@@ -459,6 +459,7 @@ export default ()=>{
 // Module 17
 //createPortal
 
+/*
 import { createPortal } from "react-dom"
 
 export default ()=>{
@@ -468,13 +469,45 @@ export default ()=>{
     Hey I am Inside Root
     <br />
     <button onClick={()=> toggleModal((prev)=> !prev)}>Toggle Modal</button>
-    {/* {showModal && <div>this is inside root component</div>} */}
+    <!-- {showModal && <div>this is inside root component</div>} -->
     {showModal && createPortal(<div style={{display : 'flex',justifyContent:'center',alignItems:'center',height:'100vh'}}>
         <div style={{height:'400px' , width:'400px' , border: '1px solid black', padding: '5px'
          , alignSelf:'center', display: 'flex' , alignItems:'center' , justifyContent:'center'}}>This is Modal Content</div>
         </div>,document.body)}
     </>
 }
+*/
 //createPortal lets you render some children into a different part of the DOM.
 // We can use Pop-up Modals with it.
 //i just used some flexbox css here you can learn flexbox on https://flexboxfroggy.com/
+
+// module 18
+// Redux
+// Redux is an open-source JavaScript library for managing and centralizing application state.
+import { useDispatch,useSelector } from "react-redux"
+import { increament,decreament,incbyammount } from "./counterSlice.js"
+
+export default ()=>{
+    const count = useSelector((state)=> state.counter.value)
+    const dispatch = useDispatch()
+    return <>
+        <div>{count}</div>
+        <button onClick={()=>dispatch(increament())}>Increament</button>
+        <button onClick={()=>dispatch(decreament())}>Decreament</button>
+        <button onClick={()=>dispatch(incbyammount(5))}>Inc by amount</button>
+
+    </>
+}
+// mobX is also a player in this centralizing data stuff.
+//it kind of works like createContext and useContext.
+// for that we do need to install redux/toolkit
+// and redux is not just a part of React,it can work with angular also.
+// Redux toolkit is actually intended to be the standard way to write Redux logic.
+/*
+ It was originally created to help address three common concerns about Redux:
+
+"Configuring a Redux store is too complicated"
+"Redux users have to add a lot of packages to get Redux to do anything useful" 
+"Redux requires too much boilerplate code"
+*/
+// npm install @reduxjs/toolkit react-redux
