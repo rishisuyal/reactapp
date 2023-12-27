@@ -559,6 +559,13 @@ export default ()=>{
 
 */
 
+
+// 1. Higher Order Component Design Pattern 
+// In this,A Component Recieves a Component Applies A certain Logic in it and with those
+// added logics it then returns the component.
+import LowerOrderComponent from "./LowerOrderComponent.jsx"
 export default ()=>{
-    return <></>
+    return <>
+    <LowerOrderComponent></LowerOrderComponent>
+    </>
 }
