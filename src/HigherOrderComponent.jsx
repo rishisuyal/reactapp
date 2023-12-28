@@ -13,3 +13,4 @@ const Hoc = (Element)=>{
 
 
 export default Hoc
+// i have used closure here.
