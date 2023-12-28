@@ -563,9 +563,34 @@ export default ()=>{
 // 1. Higher Order Component Design Pattern 
 // In this,A Component Recieves a Component Applies A certain Logic in it and with those
 // added logics it then returns the component.
+/*
 import LowerOrderComponent from "./LowerOrderComponent.jsx"
 export default ()=>{
     return <>
     <LowerOrderComponent></LowerOrderComponent>
     </>
 }
+*/
+
+// 2. Render Props Pattern
+// In this A component Recieves a Function (which have a jsx return) in its Prop.
+// we use it when we want a component to be Customisable 
+// provide ability to theme the component according to their design system.
+// where Hoc provides you ability to apply a certain logic to a component and return it
+// Render props pattern gives you abilty to give a component in which you can provide your diffent logic and
+// component will work accordingly.
+
+import RenderPropInput from "./RenderPropInput.jsx"
+export default ()=>{
+    const jsx_func1 = (val)=>{
+        return <div>The Real values is : {val}</div>
+    }
+    const jsx_func2 = (val)=>{
+        return <div>The multiplied value is : {val*10} </div>
+    }
+    return <><RenderPropInput func={jsx_func1}></RenderPropInput>
+            <RenderPropInput func={jsx_func2}></RenderPropInput></>
+
+}
+// here we are passing diffrent jsx by diffrent functions as a prop to the same component
+// which makes the component to work differently
